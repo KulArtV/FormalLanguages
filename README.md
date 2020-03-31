@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.com/KulArtV/FormalLanguages.svg?token=hkLCKRKpQ7j6SltOFRPuww&branch=FirstPrac)]
-(https://travis-ci.com/KulArtV/FormalLanguages)
-
 # What can you find here?
 
 In this branch you can find the solution to the first practical
