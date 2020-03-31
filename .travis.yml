@@ -1,5 +1,9 @@
 language: cpp
 
+branches:
+  only:
+    - second_prac
+
 install:
   - sudo pip install codecov
   - sudo apt-get install -y cmake
@@ -13,12 +17,22 @@ install:
 
 
 script:
-  - cmake .
+  - mkdir build
+  - cd build
+  - cmake ..
   - make
   - ./Test
+  - cd CMakeFiles/Test.dir
+  - cd ..
+  - cd ..
+
+addons:
+  apt:
+    packages:
+      - lcov
 
 after_success:
-  - g++ -std=c++11 -fprofile-arcs -ftest-coverage main.cpp solver.cpp && ./a.out
-  - gcov solver.cpp
-  - gcov main.cpp
-  - rm *.g*
+  - lcov --capture --directory ./CMakeFiles/Test.dir/ --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+  - lcov --list coverage.info
+  - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
