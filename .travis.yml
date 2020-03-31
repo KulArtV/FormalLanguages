@@ -1,0 +1,24 @@
+language: cpp
+
+install:
+  - sudo pip install codecov
+  - sudo apt-get install -y cmake
+  - sudo apt-get install -y libgtest-dev
+  - mkdir build_gtest
+  - cd build_gtest
+  - cmake /usr/src/gtest
+  - sudo make
+  - sudo cp libgtest* /usr/lib
+  - cd ..
+
+
+script:
+  - cmake .
+  - make
+  - ./Test
+
+after_success:
+  - g++ -std=c++11 -fprofile-arcs -ftest-coverage main.cpp solver.cpp && ./a.out
+  - gcov solver.cpp
+  - gcov main.cpp
+  - rm *.g*
