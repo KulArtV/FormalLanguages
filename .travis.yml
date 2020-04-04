@@ -1,9 +1,5 @@
 language: cpp
 
-branches:
-  only:
-    - second_prac
-
 install:
   - sudo pip install codecov
   - sudo apt-get install -y cmake
